@@ -2,235 +2,172 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
 
-// 🔥 FIREBASE CONFIG
-const firebaseConfig = {
-  apiKey: "AIzaSyDpZD3ML2VVASnCWh665vmyGYKASBaqJ2Y",
-  authDomain: "mirmet-zone.firebaseapp.com",
-  projectId: "mirmet-zone",
-  storageBucket: "mirmet-zone.firebasestorage.app",
-  messagingSenderId: "1003782331127",
-  appId: "1:1003782331127:web:e21a4b1464f8c7a7a791f2"
-};
-
-// 🔥 Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-
-console.log("🔥 Firebase Connected");
-
-// BACK BUTTON FIX
-window.onpopstate = function(event){
-
-  document.getElementById('homePage').classList.remove('hidden');
-
-  document.getElementById('registerPage').classList.add('hidden');
-
-  document.getElementById('adminLogin').classList.add('hidden');
-
-  document.getElementById('adminPanel').classList.add('hidden');
-}
-
-// OPEN REGISTER PAGE
-function showRegister(){
-
-  history.pushState({page:'register'}, '', '#register');
-
-  document.getElementById('homePage').classList.add('hidden');
-
-  document.getElementById('registerPage').classList.remove('hidden');
-}
-
-// OPEN ADMIN LOGIN
-function showAdminLogin(){
-
-  history.pushState({page:'admin'}, '', '#admin');
-
-  document.getElementById('homePage').classList.add('hidden');
-
-  document.getElementById('adminLogin').classList.remove('hidden');
-}
-
-// NEXT STEP VALIDATION
-function nextStep(){
-
-  let name = document.getElementById('name').value.trim();
-
-  let uid = document.getElementById('uid').value.trim();
-
-  let ign = document.getElementById('ign').value.trim();
-
-  let whatsapp = document.getElementById('whatsapp').value.trim();
-
-  if(name === '' || uid === '' || ign === '' || whatsapp === ''){
-
-    alert('⚠ Please fill all details');
-
-    return;
-  }
-
-  if(whatsapp.length < 10){
-
-    alert('⚠ Invalid WhatsApp Number');
-
-    return;
-  }
-
-  document.getElementById('step1').classList.add('hidden');
-
-  document.getElementById('step2').classList.remove('hidden');
-}
-
-// SUBMIT FORM
-function submitForm(){
-
-  let transaction = document.getElementById('transaction').value.trim();
-
-  let screenshot = document.getElementById('screenshot').files.length;
-
-  let rules = document.getElementById('rules').checked;
-
-  if(transaction === ''){
-
-    alert('⚠ Enter UPI Transaction ID');
-
-    return;
-  }
-
-  if(screenshot === 0){
-
-    alert('⚠ Upload Payment Screenshot');
-
-    return;
-  }
-
-  if(!rules){
-
-    alert('⚠ Accept Tournament Rules');
-
-    return;
-  }
-
-  let player = {
-
-    name: document.getElementById('name').value,
-
-    uid: document.getElementById('uid').value,
-
-    ign: document.getElementById('ign').value,
-
-    whatsapp: document.getElementById('whatsapp').value,
-
-    mode: document.getElementById('mode').value,
-
-    transaction: transaction,
-
-    status: 'Pending Verification',
-
-    createdAt: new Date().toISOString()
+  // 🔥 FIREBASE CONFIG
+  const firebaseConfig = {
+    apiKey: "AIzaSyDpZD3ML2VVASnCWh665vmyGYKASBaqJ2Y",
+    authDomain: "mirmet-zone.firebaseapp.com",
+    projectId: "mirmet-zone",
+    storageBucket: "mirmet-zone.firebasestorage.app",
+    messagingSenderId: "1003782331127",
+    appId: "1:1003782331127:web:e21a4b1464f8c7a7a791f2"
   };
 
-  // SAVE TO FIREBASE
-  db.collection("players").add(player)
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
-  .then(() => {
+  console.log("🔥 Firebase Connected");
 
-    alert('✅ Registration Submitted Successfully');
+  // BACK BUTTON FIX
+  window.onpopstate = function () {
+    safeShow("homePage");
+    safeHide("registerPage");
+    safeHide("adminLogin");
+    safeHide("adminPanel");
+  };
 
-    location.reload();
-
-  })
-
-  .catch((error) => {
-
-    alert('❌ Error: ' + error.message);
-
-  });
-}
-
-// ADMIN LOGIN
-function loginAdmin(){
-
-  let password = document.getElementById('adminPassword').value;
-
-  if(password === 'mirmet123'){
-
-    document.getElementById('adminLogin').classList.add('hidden');
-
-    document.getElementById('adminPanel').classList.remove('hidden');
-
-    loadPlayers();
-
-  } else {
-
-    alert('❌ Wrong Password');
+  function safeShow(id){
+    let el = document.getElementById(id);
+    if(el) el.classList.remove("hidden");
   }
-}
 
-// LOAD PLAYERS FROM FIREBASE
-function loadPlayers(){
+  function safeHide(id){
+    let el = document.getElementById(id);
+    if(el) el.classList.add("hidden");
+  }
 
-  db.collection("players")
+  // OPEN REGISTER PAGE
+  window.showRegister = function () {
+    history.pushState({page:'register'}, '', '#register');
+    safeHide("homePage");
+    safeShow("registerPage");
+  }
 
-  .orderBy("createdAt", "desc")
+  // ADMIN LOGIN PAGE
+  window.showAdminLogin = function () {
+    history.pushState({page:'admin'}, '', '#admin');
+    safeHide("homePage");
+    safeShow("adminLogin");
+  }
 
-  .get()
+  // NEXT STEP
+  window.nextStep = function () {
 
-  .then((querySnapshot) => {
+    let name = document.getElementById('name')?.value.trim();
+    let uid = document.getElementById('uid')?.value.trim();
+    let ign = document.getElementById('ign')?.value.trim();
+    let whatsapp = document.getElementById('whatsapp')?.value.trim();
 
-    let html = '';
+    if (!name || !uid || !ign || !whatsapp) {
+      alert('⚠ Please fill all details');
+      return;
+    }
 
-    querySnapshot.forEach((doc, index) => {
+    if (whatsapp.length < 10) {
+      alert('⚠ Invalid WhatsApp Number');
+      return;
+    }
 
-      let player = doc.data();
+    safeHide("step1");
+    safeShow("step2");
+  }
 
-      html += `
-        <div class="bg-zinc-800 rounded-xl p-4 mb-3">
+  // SUBMIT FORM
+  window.submitForm = function () {
 
-          <h3 class="font-bold text-lg text-yellow-400">
-            Player ${index + 1}
-          </h3>
+    let transaction = document.getElementById('transaction')?.value.trim();
+    let screenshot = document.getElementById('screenshot')?.files.length || 0;
+    let rules = document.getElementById('rules')?.checked;
 
-          <p><b>Name:</b> ${player.name}</p>
+    if (!transaction) {
+      alert('⚠ Enter UPI Transaction ID');
+      return;
+    }
 
-          <p><b>UID:</b> ${player.uid}</p>
+    if (screenshot === 0) {
+      alert('⚠ Upload Payment Screenshot');
+      return;
+    }
 
-          <p><b>IGN:</b> ${player.ign}</p>
+    if (!rules) {
+      alert('⚠ Accept Tournament Rules');
+      return;
+    }
 
-          <p><b>WhatsApp:</b> ${player.whatsapp}</p>
+    let player = {
+      name: document.getElementById('name').value,
+      uid: document.getElementById('uid').value,
+      ign: document.getElementById('ign').value,
+      whatsapp: document.getElementById('whatsapp').value,
+      mode: document.getElementById('mode').value,
+      transaction: transaction,
+      status: "Pending Verification",
+      createdAt: Date.now()
+    };
 
-          <p><b>Mode:</b> ${player.mode}</p>
+    db.collection("players").add(player)
+      .then(() => {
+        alert("✅ Registration Submitted Successfully");
+        location.reload();
+      })
+      .catch((err) => {
+        alert("❌ Error: " + err.message);
+      });
+  }
 
-          <p><b>Transaction ID:</b> ${player.transaction}</p>
+  // ADMIN LOGIN
+  window.loginAdmin = function () {
 
-          <p>
-            <b>Status:</b>
+    let password = document.getElementById('adminPassword')?.value;
 
-            <span class="text-yellow-400">
-              ${player.status}
-            </span>
-          </p>
+    if (password === "mirmet123") {
+      safeHide("adminLogin");
+      safeShow("adminPanel");
+      loadPlayers();
+    } else {
+      alert("❌ Wrong Password");
+    }
+  }
 
-        </div>
-      `;
-    });
+  // LOAD PLAYERS
+  function loadPlayers() {
 
-    document.getElementById('playersList').innerHTML = html;
+    db.collection("players")
+      .orderBy("createdAt", "desc")
+      .get()
+      .then((snap) => {
 
-  })
+        let html = "";
 
-  .catch((error) => {
+        snap.forEach((doc, i) => {
+          let p = doc.data();
 
-    console.log(error);
+          html += `
+            <div class="bg-zinc-800 p-4 rounded-xl mb-3">
+              <h3 class="text-yellow-400 font-bold">Player ${i + 1}</h3>
+              <p><b>Name:</b> ${p.name}</p>
+              <p><b>UID:</b> ${p.uid}</p>
+              <p><b>IGN:</b> ${p.ign}</p>
+              <p><b>WhatsApp:</b> ${p.whatsapp}</p>
+              <p><b>Mode:</b> ${p.mode}</p>
+              <p><b>Txn:</b> ${p.transaction}</p>
+              <p><b>Status:</b> ${p.status}</p>
+            </div>
+          `;
+        });
 
-  });
-}
+        let el = document.getElementById("playersList");
+        if (el) el.innerHTML = html;
 
-// LOGOUT
-function logoutAdmin(){
+      })
+      .catch(err => console.log(err));
+  }
 
-  location.reload();
-}
+  // LOGOUT
+  window.logoutAdmin = function () {
+    location.reload();
+  }
 
+});
 </script>
