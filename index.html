@@ -4,128 +4,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIRMET ZONE TOURNAMENT 2026</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;600&display=swap');
-        
-        body { font-family: 'Poppins', sans-serif; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: #0b0415; /* Deep dark purple background */
+            color: #ffffff;
+        }
         .heading-font { font-family: 'Oswald', sans-serif; }
         
+        /* Hero Banner Settings */
         .hero-banner {
             width: 100%;
             aspect-ratio: 16/9;
-            background-image: url('banner.png'); /* Ensure your image name is banner.png */
+            max-height: 500px;
+            background-image: url('banner.png'); /* IMPORTANT: Keep your image named banner.png */
             background-size: cover;
             background-position: center;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-bottom: 3px solid #fbbf24; /* Yellow bottom border */
         }
 
-        /* Overlay to make text readable over the banner */
-        .banner-text-overlay {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 10px 20px;
-            border-radius: 8px;
+        /* Dark overlay over the banner to make the text pop */
+        .banner-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(11,4,21,0.9) 100%);
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 10;
             text-align: center;
+            padding: 0 20px;
         }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
+        
+        /* Custom Scrollbar for Admin Panel */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #130826; }
+        ::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-[#0f071a] text-white">
+<body class="antialiased">
 
     <div id="homePage">
-        <header class="hero-banner">
-            <div class="banner-text-overlay">
-                <h1 class="heading-font text-3xl md:text-6xl text-yellow-400 tracking-wider uppercase">
-                    MIRMET ZONE TOURNAMENT 2026
+        
+        <header class="hero-banner shadow-2xl">
+            <div class="banner-overlay"></div>
+            <div class="banner-content">
+                <p class="text-yellow-400 font-bold tracking-[0.3em] uppercase text-sm mb-2 drop-shadow-md">Join • Play • Win</p>
+                <h1 class="heading-font text-5xl md:text-7xl lg:text-8xl text-white uppercase tracking-wider drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
+                    MIRMET ZONE <br> <span class="text-yellow-400">TOURNAMENT 2026</span>
                 </h1>
             </div>
         </header>
 
-        <main class="max-w-4xl mx-auto px-6 py-12 text-center">
-            <h2 class="text-4xl font-bold mb-6">WELCOME TO <span class="text-yellow-400">MIRMET ZONE</span></h2>
-            <p class="text-zinc-400 text-lg leading-relaxed mb-10">
-                Welcome to Mirmet Zone, your ultimate destination for professional Free Fire tournaments. 
-                Register now to showcase your skills and compete for a prize pool of up to ₹5000! 
-                Both Solo and Squad modes are now open for registrations. Join the battle today!
+        <main class="max-w-5xl mx-auto px-6 py-16 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 uppercase tracking-wide">
+                Welcome to <span class="text-yellow-400">Mirmet Zone</span>
+            </h2>
+            
+            <p class="text-zinc-300 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-12">
+                Your ultimate destination for professional Free Fire tournaments. 
+                Register now to showcase your skills, battle against the best, and compete for a massive prize pool of up to <span class="text-yellow-400 font-bold">₹5000</span>! 
+                Both Solo and Squad modes are now open for registrations. Don't wait—secure your slot today!
             </p>
             
-            <button onclick="showRegister()" class="bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-xl hover:scale-105 transition-transform flex items-center gap-3 mx-auto shadow-lg shadow-yellow-400/20">
+            <button onclick="showModal('registerPage')" class="bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-xl hover:scale-105 hover:bg-yellow-300 transition-all duration-300 flex items-center gap-3 mx-auto shadow-[0_0_20px_rgba(251,191,36,0.3)]">
                 Register Now & Join The Battle
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>
-            <p class="text-sm text-zinc-500 mt-4 italic">Limited slots available. Hurry up!</p>
+            <p class="text-sm text-yellow-400 mt-4 font-medium tracking-wide">⚡ Limited slots available. Hurry up! ⚡</p>
         </main>
 
-        <div class="bg-[#1a0d2e] py-8 border-t border-white/5">
-            <div class="flex flex-wrap justify-center gap-8 md:gap-16 text-sm font-semibold text-zinc-300">
-                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-green-500 rounded-full"></div> 100% FAIR PLAY</span>
-                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-yellow-400 rounded-full"></div> NO LAG SERVER</span>
-                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-blue-500 rounded-full"></div> LIVE SUPPORT</span>
+        <div class="bg-[#130826] py-8 border-t border-white/5">
+            <div class="max-w-6xl mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-20 text-sm md:text-base font-semibold text-zinc-300">
+                <span class="flex items-center gap-3"><div class="w-3 h-3 bg-green-500 rounded-full shadow-[0_0_10px_#22c55e]"></div> 100% FAIR PLAY</span>
+                <span class="flex items-center gap-3"><div class="w-3 h-3 bg-yellow-400 rounded-full shadow-[0_0_10px_#facc15]"></div> SMOOTH & LAG FREE</span>
+                <span class="flex items-center gap-3"><div class="w-3 h-3 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div> LIVE SUPPORT</span>
             </div>
         </div>
 
-        <footer class="p-6 text-center text-xs text-zinc-700">
-            &copy; 2026 Mirmet Zone Tournament. All Rights Reserved. 
-            <span onclick="showAdminLogin()" class="cursor-pointer opacity-10 hover:opacity-100 ml-2">Admin Panel</span>
+        <footer class="p-8 text-center text-sm text-zinc-600 bg-[#0b0415]">
+            <p>&copy; 2026 Mirmet Zone Tournament. All Rights Reserved.</p>
+            <p class="mt-2"><span onclick="showModal('adminLogin')" class="cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-500 px-4 py-2">Admin Panel</span></p>
         </footer>
     </div>
 
-    <div id="registerPage" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-[#1a0d2e] w-full max-w-md p-8 rounded-2xl border border-white/10">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-yellow-400">Registration</h3>
-                <button onclick="closeModal('registerPage')" class="text-zinc-500 text-3xl">&times;</button>
-            </div>
+
+    <div id="registerPage" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-[#130826] w-full max-w-lg p-8 rounded-2xl border border-yellow-400/20 shadow-2xl relative overflow-hidden">
+            
+            <button onclick="closeModal('registerPage')" class="absolute top-4 right-5 text-zinc-500 hover:text-white text-3xl transition-colors">&times;</button>
+            
+            <h3 class="heading-font text-3xl text-yellow-400 mb-2 uppercase tracking-wide">Player Registration</h3>
+            <p class="text-sm text-zinc-400 mb-6">Fill in your correct details to participate.</p>
             
             <div id="step1">
-                <label class="block text-xs font-bold text-zinc-500 mb-1 uppercase">Full Name</label>
-                <input type="text" id="name" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5 focus:border-yellow-400 outline-none">
-                
-                <label class="block text-xs font-bold text-zinc-500 mb-1 uppercase">Game UID</label>
-                <input type="text" id="uid" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5">
-                
-                <label class="block text-xs font-bold text-zinc-500 mb-1 uppercase">WhatsApp Number</label>
-                <input type="number" id="whatsapp" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-zinc-400 mb-1 uppercase tracking-wider">Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe" class="w-full bg-[#0b0415] text-white p-3.5 rounded-xl border border-white/10 focus:border-yellow-400 outline-none transition-colors">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-zinc-400 mb-1 uppercase tracking-wider">Game UID</label>
+                            <input type="number" id="uid" placeholder="123456789" class="w-full bg-[#0b0415] text-white p-3.5 rounded-xl border border-white/10 focus:border-yellow-400 outline-none transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-zinc-400 mb-1 uppercase tracking-wider">In-Game Name</label>
+                            <input type="text" id="ign" placeholder="PRO_GAMER" class="w-full bg-[#0b0415] text-white p-3.5 rounded-xl border border-white/10 focus:border-yellow-400 outline-none transition-colors">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-zinc-400 mb-1 uppercase tracking-wider">WhatsApp Number</label>
+                        <input type="number" id="whatsapp" placeholder="9876543210" class="w-full bg-[#0b0415] text-white p-3.5 rounded-xl border border-white/10 focus:border-yellow-400 outline-none transition-colors">
+                    </div>
 
-                <button onclick="nextStep()" class="w-full bg-yellow-400 text-black font-bold py-3 rounded-lg mt-2">Continue</button>
+                    <div>
+                        <label class="block text-xs font-bold text-zinc-400 mb-1 uppercase tracking-wider">Tournament Mode</label>
+                        <select id="mode" class="w-full bg-[#0b0415] text-white p-3.5 rounded-xl border border-white/10 focus:border-yellow-400 outline-none transition-colors appearance-none">
+                            <option value="Solo">Solo Match</option>
+                            <option value="Duo">Duo Match</option>
+                            <option value="Squad">Squad Match</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button onclick="nextStep()" class="w-full bg-yellow-400 text-black font-bold text-lg py-4 rounded-xl mt-8 hover:bg-yellow-300 transition-colors">Continue to Payment</button>
             </div>
 
-            <div id="step2" class="hidden text-center">
-                <p class="text-zinc-400 mb-6">Please complete the payment and enter the Transaction ID below.</p>
-                <input type="text" id="transaction" placeholder="Enter Transaction ID" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5">
-                <button onclick="submitForm()" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg">Submit Final Registration</button>
+            <div id="step2" class="hidden">
+                <div class="bg-[#0b0415] p-5 rounded-xl border border-white/5 mb-6 text-center">
+                    <p class="text-sm text-zinc-300 mb-2">Entry Fee: <span class="text-yellow-400 font-bold">₹500</span></p>
+                    <p class="text-xs text-zinc-500">Pay via UPI and enter the transaction ID below to verify your entry.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-zinc-400 mb-1 uppercase tracking-wider">UPI Transaction ID</label>
+                        <input type="text" id="transaction" placeholder="e.g. 312345678901" class="w-full bg-[#0b0415] text-white p-3.5 rounded-xl border border-white/10 focus:border-yellow-400 outline-none transition-colors">
+                    </div>
+
+                    <div class="flex items-start gap-3 mt-4">
+                        <input type="checkbox" id="rules" class="mt-1 w-4 h-4 accent-yellow-400 cursor-pointer">
+                        <label for="rules" class="text-xs text-zinc-400 leading-relaxed cursor-pointer">I agree to the tournament rules. I understand that using hacks or abusive language will lead to a permanent ban.</label>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 mt-8">
+                    <button onclick="prevStep()" class="w-1/3 bg-zinc-800 text-white font-bold py-4 rounded-xl hover:bg-zinc-700 transition-colors">Back</button>
+                    <button onclick="submitForm()" class="w-2/3 bg-green-500 text-white font-bold text-lg py-4 rounded-xl hover:bg-green-400 transition-colors shadow-[0_0_15px_rgba(34,197,94,0.3)]">Submit Registration</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="adminLogin" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-[#1a0d2e] p-8 rounded-2xl border border-white/10 w-full max-w-xs">
-            <h3 class="text-xl font-bold mb-4">Admin Login</h3>
-            <input type="password" id="adminPassword" placeholder="Password" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5">
-            <button onclick="loginAdmin()" class="w-full bg-yellow-400 text-black font-bold py-2 rounded-lg">Login</button>
-            <button onclick="closeModal('adminLogin')" class="w-full text-zinc-500 mt-2 text-sm uppercase">Cancel</button>
+
+    <div id="adminLogin" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-[#130826] p-8 rounded-2xl border border-white/10 w-full max-w-sm text-center shadow-2xl">
+            <div class="w-16 h-16 bg-yellow-400/10 text-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <h3 class="heading-font text-2xl tracking-wide mb-6 uppercase">Admin Access</h3>
+            <input type="password" id="adminPassword" placeholder="Enter Admin Password" class="w-full bg-[#0b0415] text-center p-4 rounded-xl mb-4 border border-white/10 focus:border-yellow-400 outline-none">
+            <button onclick="loginAdmin()" class="w-full bg-yellow-400 text-black font-bold py-3.5 rounded-xl hover:bg-yellow-300 transition-colors">Login to Dashboard</button>
+            <button onclick="closeModal('adminLogin')" class="w-full text-zinc-500 mt-4 text-sm font-semibold hover:text-white transition-colors">Cancel</button>
         </div>
     </div>
 
-    <div id="adminPanel" class="fixed inset-0 bg-[#0f071a] z-50 hidden overflow-y-auto p-6">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-bold">Admin Dashboard</h2>
-                <button onclick="location.reload()" class="bg-red-500 px-4 py-2 rounded-lg text-sm">Logout</button>
+
+    <div id="adminPanel" class="fixed inset-0 bg-[#0b0415] z-50 hidden overflow-y-auto">
+        <div class="max-w-6xl mx-auto p-6 md:p-10">
+            <div class="flex flex-col md:flex-row justify-between items-center bg-[#130826] p-6 rounded-2xl border border-white/5 mb-8 gap-4">
+                <div>
+                    <h2 class="heading-font text-3xl text-yellow-400 uppercase tracking-wide">Admin Dashboard</h2>
+                    <p class="text-zinc-400 text-sm mt-1">Manage all tournament registrations here.</p>
+                </div>
+                <button onclick="location.reload()" class="bg-red-500/10 text-red-500 border border-red-500/20 px-6 py-2.5 rounded-full font-bold hover:bg-red-500 hover:text-white transition-colors">Logout Securely</button>
             </div>
-            <div id="playersList" class="grid gap-4 text-left"></div>
+            
+            <div id="playersList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="col-span-full text-center py-20 text-zinc-500">
+                    <svg class="w-10 h-10 mx-auto mb-3 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    Loading registrations...
+                </div>
+            </div>
         </div>
     </div>
+
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     
     <script>
-        // CONFIG
+        // 1. FIREBASE CONFIGURATION (Your Credentials)
         const firebaseConfig = {
             apiKey: "AIzaSyDpZD3ML2VVASnCWh665vmyGYKASBaqJ2Y",
             authDomain: "mirmet-zone.firebaseapp.com",
@@ -135,55 +219,148 @@
             appId: "1:1003782331127:web:e21a4b1464f8c7a7a791f2"
         };
 
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // UI FUNCTIONS
-        function showRegister() { document.getElementById('registerPage').classList.remove('hidden'); }
-        function showAdminLogin() { document.getElementById('adminLogin').classList.remove('hidden'); }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-        function nextStep() {
-            if(document.getElementById('name').value && document.getElementById('uid').value) {
-                document.getElementById('step1').classList.add('hidden');
-                document.getElementById('step2').classList.remove('hidden');
-            } else { alert("Please fill all details!"); }
+        // 2. MODAL CONTROLS
+        function showModal(id) { 
+            document.getElementById(id).classList.remove('hidden'); 
+            // Reset registration form if opening it
+            if(id === 'registerPage') {
+                document.getElementById('step1').classList.remove('hidden');
+                document.getElementById('step2').classList.add('hidden');
+            }
+        }
+        function closeModal(id) { 
+            document.getElementById(id).classList.add('hidden'); 
         }
 
+        // 3. REGISTRATION STEPS LOGIC
+        function nextStep() {
+            const name = document.getElementById('name').value.trim();
+            const uid = document.getElementById('uid').value.trim();
+            const ign = document.getElementById('ign').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+
+            if(name && uid && ign && whatsapp) {
+                if(whatsapp.length < 10) {
+                    alert("Please enter a valid 10-digit WhatsApp number.");
+                    return;
+                }
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+            } else { 
+                alert("Please fill in all the details to proceed."); 
+            }
+        }
+
+        function prevStep() {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+        }
+
+        // 4. SUBMIT DATA TO FIREBASE
         function submitForm() {
+            const transaction = document.getElementById('transaction').value.trim();
+            const rules = document.getElementById('rules').checked;
+
+            if(!transaction) {
+                alert("Please enter your UPI Transaction ID.");
+                return;
+            }
+            if(!rules) {
+                alert("You must agree to the tournament rules to register.");
+                return;
+            }
+
+            // Change button text to show processing
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "Processing...";
+            btn.disabled = true;
+
+            // Prepare Data
             const player = {
-                name: document.getElementById('name').value,
-                uid: document.getElementById('uid').value,
-                whatsapp: document.getElementById('whatsapp').value,
-                txn: document.getElementById('transaction').value,
-                date: new Date().toLocaleString()
+                name: document.getElementById('name').value.trim(),
+                uid: document.getElementById('uid').value.trim(),
+                ign: document.getElementById('ign').value.trim(),
+                whatsapp: document.getElementById('whatsapp').value.trim(),
+                mode: document.getElementById('mode').value,
+                txn: transaction,
+                status: "Pending Verification",
+                date: new Date().toLocaleString(),
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
             };
-            db.collection("players").add(player).then(() => {
-                alert("Registration Successful!");
-                location.reload();
+
+            // Save to Firestore Database
+            db.collection("players").add(player)
+            .then(() => {
+                alert("Registration Successful! We will verify your payment and contact you on WhatsApp.");
+                location.reload(); // Refresh page after success
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+                alert("Something went wrong. Please check your internet connection and try again.");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             });
         }
 
+        // 5. ADMIN PANEL LOGIC
         function loginAdmin() {
-            if(document.getElementById('adminPassword').value === "mirmet123") {
+            const pass = document.getElementById('adminPassword').value;
+            if(pass === "mirmet123") {
                 document.getElementById('adminLogin').classList.add('hidden');
                 document.getElementById('adminPanel').classList.remove('hidden');
                 loadPlayers();
-            } else { alert("Wrong Password!"); }
+            } else { 
+                alert("Incorrect Password! Access Denied."); 
+            }
         }
 
         function loadPlayers() {
-            db.collection("players").get().then((snap) => {
+            // Fetch data from firestore, ordered by latest first
+            db.collection("players").orderBy("timestamp", "desc").get()
+            .then((querySnapshot) => {
                 let html = "";
-                snap.forEach(doc => {
+                let count = 1;
+                
+                querySnapshot.forEach((doc) => {
                     const p = doc.data();
-                    html += `<div class="bg-[#1a0d2e] p-4 rounded-xl border border-white/5">
-                        <p class="font-bold text-yellow-400">${p.name}</p>
-                        <p class="text-sm">UID: ${p.uid} | WhatsApp: ${p.whatsapp}</p>
-                        <p class="text-xs text-zinc-500 mt-2">TXN: ${p.txn}</p>
+                    
+                    // Decide badge color based on mode
+                    let badgeColor = p.mode === 'Squad' ? 'bg-purple-500' : (p.mode === 'Duo' ? 'bg-blue-500' : 'bg-green-500');
+
+                    html += `
+                    <div class="bg-[#130826] p-6 rounded-2xl border border-white/5 relative hover:border-yellow-400/30 transition-colors">
+                        <div class="absolute top-4 right-4 ${badgeColor} text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                            ${p.mode}
+                        </div>
+                        <p class="text-xs text-zinc-500 mb-1">Player #${count}</p>
+                        <h4 class="text-xl font-bold text-yellow-400 mb-1">${p.name}</h4>
+                        <p class="text-sm font-semibold text-white mb-4">IGN: <span class="text-zinc-300">${p.ign}</span></p>
+                        
+                        <div class="bg-[#0b0415] p-3 rounded-lg text-sm text-zinc-400 space-y-1.5 border border-white/5">
+                            <p><strong class="text-zinc-200">UID:</strong> ${p.uid}</p>
+                            <p><strong class="text-zinc-200">WA:</strong> ${p.whatsapp}</p>
+                            <p><strong class="text-zinc-200">TXN:</strong> <span class="text-green-400">${p.txn}</span></p>
+                        </div>
+                        
+                        <p class="text-[10px] text-zinc-600 mt-4 text-right">${p.date}</p>
                     </div>`;
+                    count++;
                 });
-                document.getElementById('playersList').innerHTML = html || "No registrations yet.";
+                
+                if(html === "") {
+                    html = `<div class="col-span-full text-center py-20 text-zinc-500 text-xl">No players registered yet.</div>`;
+                }
+                
+                document.getElementById('playersList').innerHTML = html;
+            })
+            .catch((error) => {
+                console.error("Error getting documents: ", error);
+                document.getElementById('playersList').innerHTML = `<div class="col-span-full text-center py-10 text-red-500">Error loading data.</div>`;
             });
         }
     </script>
