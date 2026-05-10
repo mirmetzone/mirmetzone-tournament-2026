@@ -1,173 +1,183 @@
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tournament Registration</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Firebase Compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+<body class="bg-zinc-900 text-white font-sans">
 
-  // 🔥 FIREBASE CONFIG
-  const firebaseConfig = {
-    apiKey: "AIzaSyDpZD3ML2VVASnCWh665vmyGYKASBaqJ2Y",
-    authDomain: "mirmet-zone.firebaseapp.com",
-    projectId: "mirmet-zone",
-    storageBucket: "mirmet-zone.firebasestorage.app",
-    messagingSenderId: "1003782331127",
-    appId: "1:1003782331127:web:e21a4b1464f8c7a7a791f2"
-  };
+  <!-- 1. HOME PAGE -->
+  <div id="homePage" class="p-6 text-center">
+    <h1 class="text-3xl font-bold text-yellow-400 mb-6">Tournament Zone</h1>
+    <button onclick="showRegister()" class="bg-yellow-500 text-black px-6 py-3 rounded-full font-bold m-2">Register Now</button>
+    <button onclick="showAdminLogin()" class="bg-zinc-700 px-6 py-3 rounded-full font-bold m-2">Admin Login</button>
+  </div>
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+  <!-- 2. REGISTER PAGE -->
+  <div id="registerPage" class="p-6 hidden max-w-md mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Player Registration</h2>
+    
+    <!-- Step 1: Details -->
+    <div id="step1">
+      <input type="text" id="name" placeholder="Full Name" class="w-full p-3 mb-3 bg-zinc-800 rounded border border-zinc-700">
+      <input type="text" id="uid" placeholder="Game UID" class="w-full p-3 mb-3 bg-zinc-800 rounded border border-zinc-700">
+      <input type="text" id="ign" placeholder="In-Game Name (IGN)" class="w-full p-3 mb-3 bg-zinc-800 rounded border border-zinc-700">
+      <input type="number" id="whatsapp" placeholder="WhatsApp Number" class="w-full p-3 mb-3 bg-zinc-800 rounded border border-zinc-700">
+      <select id="mode" class="w-full p-3 mb-6 bg-zinc-800 rounded border border-zinc-700 text-zinc-400">
+        <option value="Solo">Solo</option>
+        <option value="Duo">Duo</option>
+        <option value="Squad">Squad</option>
+      </select>
+      <button onclick="nextStep()" class="w-full bg-yellow-500 text-black py-3 rounded-xl font-bold">Next Step</button>
+    </div>
 
-  console.log("🔥 Firebase Connected");
+    <!-- Step 2: Payment -->
+    <div id="step2" class="hidden">
+      <p class="mb-4 text-zinc-400 text-sm text-center">Pay Fee via UPI & Enter Details</p>
+      <input type="text" id="transaction" placeholder="UPI Transaction ID" class="w-full p-3 mb-3 bg-zinc-800 rounded border border-zinc-700">
+      <label class="block mb-2 text-sm">Upload Screenshot:</label>
+      <input type="file" id="screenshot" class="mb-4">
+      
+      <div class="flex items-center mb-6">
+        <input type="checkbox" id="rules" class="mr-2">
+        <label for="rules" class="text-xs">I agree to the tournament rules.</label>
+      </div>
+      
+      <button onclick="submitForm()" class="w-full bg-green-500 text-white py-3 rounded-xl font-bold">Submit Registration</button>
+    </div>
+  </div>
 
-  // BACK BUTTON FIX
-  window.onpopstate = function () {
-    safeShow("homePage");
-    safeHide("registerPage");
-    safeHide("adminLogin");
-    safeHide("adminPanel");
-  };
+  <!-- 3. ADMIN LOGIN -->
+  <div id="adminLogin" class="p-6 hidden max-w-md mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Admin Access</h2>
+    <input type="password" id="adminPassword" placeholder="Enter Password" class="w-full p-3 mb-4 bg-zinc-800 rounded">
+    <button onclick="loginAdmin()" class="w-full bg-blue-600 py-3 rounded-xl font-bold">Login</button>
+  </div>
 
-  function safeShow(id){
-    let el = document.getElementById(id);
-    if(el) el.classList.remove("hidden");
-  }
+  <!-- 4. ADMIN PANEL -->
+  <div id="adminPanel" class="p-6 hidden">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">Registered Players</h2>
+      <button onclick="logoutAdmin()" class="bg-red-500 px-4 py-1 rounded text-sm">Logout</button>
+    </div>
+    <div id="playersList">
+      <!-- Dynamic Content -->
+    </div>
+  </div>
 
-  function safeHide(id){
-    let el = document.getElementById(id);
-    if(el) el.classList.add("hidden");
-  }
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-  // OPEN REGISTER PAGE
-  window.showRegister = function () {
-    history.pushState({page:'register'}, '', '#register');
-    safeHide("homePage");
-    safeShow("registerPage");
-  }
+      // 🔥 FIREBASE CONFIG (Check your API Key)
+      const firebaseConfig = {
+        apiKey: "AIzaSyDpZD3ML2VVASnCWh665vmyGYKASBaqJ2Y",
+        authDomain: "mirmet-zone.firebaseapp.com",
+        projectId: "mirmet-zone",
+        storageBucket: "mirmet-zone.firebasestorage.app",
+        messagingSenderId: "1003782331127",
+        appId: "1:1003782331127:web:e21a4b1464f8c7a7a791f2"
+      };
 
-  // ADMIN LOGIN PAGE
-  window.showAdminLogin = function () {
-    history.pushState({page:'admin'}, '', '#admin');
-    safeHide("homePage");
-    safeShow("adminLogin");
-  }
+      // Safety check for Firebase
+      if (typeof firebase !== 'undefined') {
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        console.log("🔥 Firebase Connected Successfully");
+      } else {
+        alert("Firebase Script load nahi ho paya. Internet check karein.");
+      }
 
-  // NEXT STEP
-  window.nextStep = function () {
+      const db = firebase.firestore();
 
-    let name = document.getElementById('name')?.value.trim();
-    let uid = document.getElementById('uid')?.value.trim();
-    let ign = document.getElementById('ign')?.value.trim();
-    let whatsapp = document.getElementById('whatsapp')?.value.trim();
-
-    if (!name || !uid || !ign || !whatsapp) {
-      alert('⚠ Please fill all details');
-      return;
-    }
-
-    if (whatsapp.length < 10) {
-      alert('⚠ Invalid WhatsApp Number');
-      return;
-    }
-
-    safeHide("step1");
-    safeShow("step2");
-  }
-
-  // SUBMIT FORM
-  window.submitForm = function () {
-
-    let transaction = document.getElementById('transaction')?.value.trim();
-    let screenshot = document.getElementById('screenshot')?.files.length || 0;
-    let rules = document.getElementById('rules')?.checked;
-
-    if (!transaction) {
-      alert('⚠ Enter UPI Transaction ID');
-      return;
-    }
-
-    if (screenshot === 0) {
-      alert('⚠ Upload Payment Screenshot');
-      return;
-    }
-
-    if (!rules) {
-      alert('⚠ Accept Tournament Rules');
-      return;
-    }
-
-    let player = {
-      name: document.getElementById('name').value,
-      uid: document.getElementById('uid').value,
-      ign: document.getElementById('ign').value,
-      whatsapp: document.getElementById('whatsapp').value,
-      mode: document.getElementById('mode').value,
-      transaction: transaction,
-      status: "Pending Verification",
-      createdAt: Date.now()
-    };
-
-    db.collection("players").add(player)
-      .then(() => {
-        alert("✅ Registration Submitted Successfully");
-        location.reload();
-      })
-      .catch((err) => {
-        alert("❌ Error: " + err.message);
-      });
-  }
-
-  // ADMIN LOGIN
-  window.loginAdmin = function () {
-
-    let password = document.getElementById('adminPassword')?.value;
-
-    if (password === "mirmet123") {
-      safeHide("adminLogin");
-      safeShow("adminPanel");
-      loadPlayers();
-    } else {
-      alert("❌ Wrong Password");
-    }
-  }
-
-  // LOAD PLAYERS
-  function loadPlayers() {
-
-    db.collection("players")
-      .orderBy("createdAt", "desc")
-      .get()
-      .then((snap) => {
-
-        let html = "";
-
-        snap.forEach((doc, i) => {
-          let p = doc.data();
-
-          html += `
-            <div class="bg-zinc-800 p-4 rounded-xl mb-3">
-              <h3 class="text-yellow-400 font-bold">Player ${i + 1}</h3>
-              <p><b>Name:</b> ${p.name}</p>
-              <p><b>UID:</b> ${p.uid}</p>
-              <p><b>IGN:</b> ${p.ign}</p>
-              <p><b>WhatsApp:</b> ${p.whatsapp}</p>
-              <p><b>Mode:</b> ${p.mode}</p>
-              <p><b>Txn:</b> ${p.transaction}</p>
-              <p><b>Status:</b> ${p.status}</p>
-            </div>
-          `;
+      // UI HELPER
+      function showSection(id) {
+        ["homePage", "registerPage", "adminLogin", "adminPanel"].forEach(section => {
+          document.getElementById(section).classList.add("hidden");
         });
+        document.getElementById(id).classList.remove("hidden");
+      }
 
-        let el = document.getElementById("playersList");
-        if (el) el.innerHTML = html;
+      // NAVIGATION
+      window.showRegister = () => showSection("registerPage");
+      window.showAdminLogin = () => showSection("adminLogin");
 
-      })
-      .catch(err => console.log(err));
-  }
+      window.nextStep = function () {
+        let name = document.getElementById('name').value.trim();
+        let uid = document.getElementById('uid').value.trim();
+        let whatsapp = document.getElementById('whatsapp').value.trim();
 
-  // LOGOUT
-  window.logoutAdmin = function () {
-    location.reload();
-  }
+        if (!name || !uid || !whatsapp) {
+          alert('⚠ Sabhi details bharna zaroori hai');
+          return;
+        }
+        document.getElementById("step1").classList.add("hidden");
+        document.getElementById("step2").classList.remove("hidden");
+      }
 
-});
-</script>
+      window.submitForm = function () {
+        let transaction = document.getElementById('transaction').value.trim();
+        let rules = document.getElementById('rules').checked;
+
+        if (!transaction || !rules) {
+          alert('⚠ Transaction ID aur Rules check karein');
+          return;
+        }
+
+        let player = {
+          name: document.getElementById('name').value,
+          uid: document.getElementById('uid').value,
+          ign: document.getElementById('ign').value,
+          whatsapp: document.getElementById('whatsapp').value,
+          mode: document.getElementById('mode').value,
+          transaction: transaction,
+          status: "Pending",
+          createdAt: Date.now()
+        };
+
+        db.collection("players").add(player).then(() => {
+          alert("✅ Registration Successful!");
+          location.reload();
+        }).catch(err => alert("Error: " + err.message));
+      }
+
+      window.loginAdmin = function () {
+        if (document.getElementById('adminPassword').value === "mirmet123") {
+          showSection("adminPanel");
+          loadPlayers();
+        } else {
+          alert("❌ Galat Password");
+        }
+      }
+
+      function loadPlayers() {
+        db.collection("players").orderBy("createdAt", "desc").get().then((snap) => {
+          let html = "";
+          snap.forEach((doc) => {
+            let p = doc.data();
+            html += `
+              <div class="bg-zinc-800 p-4 rounded-xl mb-3 border-l-4 border-yellow-500">
+                <p><b>Name:</b> ${p.name} | <b>IGN:</b> ${p.ign}</p>
+                <p class="text-sm text-zinc-400"><b>TXN:</b> ${p.transaction}</p>
+              </div>`;
+          });
+          document.getElementById("playersList").innerHTML = html || "<p>No registrations yet.</p>";
+        });
+      }
+
+      window.logoutAdmin = () => location.reload();
+    });
+  </script>
+</body>
+</html>
