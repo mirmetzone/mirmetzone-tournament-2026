@@ -99,12 +99,31 @@
 
   </section><script>
 
+window.onpopstate = function(event){
+
+  document.getElementById('homePage').classList.add('hidden');
+  document.getElementById('registerPage').classList.add('hidden');
+  document.getElementById('adminLogin').classList.add('hidden');
+  document.getElementById('adminPanel').classList.add('hidden');
+
+  if(event.state && event.state.page){
+    document.getElementById(event.state.page).classList.remove('hidden');
+  } else {
+    document.getElementById('homePage').classList.remove('hidden');
+  }
+}
+
+
 function showRegister(){
+  history.pushState({page:'registerPage'}, '', '#register');
+
   document.getElementById('homePage').classList.add('hidden');
   document.getElementById('registerPage').classList.remove('hidden');
 }
 
 function showAdminLogin(){
+  history.pushState({page:'adminLogin'}, '', '#admin');
+
   document.getElementById('homePage').classList.add('hidden');
   document.getElementById('adminLogin').classList.remove('hidden');
 }
