@@ -6,7 +6,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-white min-h-screen">  <!-- Header -->  <div class="bg-gradient-to-r from-purple-700 to-pink-600 p-5 text-center shadow-lg">
-    <h1 class="text-3xl font-bold">MIRMET ZONE TOURNAMENT</h1>
+    <h1 class="text-3xl font-bold"> MIRMET ZONE TOURNAMENT </h1>
     <p class="mt-2 text-sm">Solo & Squad | Join Fee ₹500 | Winner ₹5000</p>
   </div>  <!-- Home Section -->  <section id="homePage" class="p-5">
     <div class="bg-zinc-900 rounded-2xl p-5 shadow-lg text-center">
@@ -60,6 +60,7 @@
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay" class="mx-auto mt-3 rounded-xl" alt="QR">
 
       <p class="mt-3 text-sm">UPI ID: yourupi@okaxis</p>
+  <p class="text-green-400 text-xs mt-2">⚠ Enter correct UPI Transaction ID after payment</p>
     </div>
 
     <input id="transaction" type="text" placeholder="UPI Transaction ID" class="w-full p-3 rounded-xl bg-zinc-800 mb-3 outline-none">
@@ -129,11 +130,48 @@ function showAdminLogin(){
 }
 
 function nextStep(){
+
+  let name = document.getElementById('name').value.trim();
+  let uid = document.getElementById('uid').value.trim();
+  let ign = document.getElementById('ign').value.trim();
+  let whatsapp = document.getElementById('whatsapp').value.trim();
+
+  if(name === '' || uid === '' || ign === '' || whatsapp === ''){
+    alert('⚠ Please fill all required details');
+    return;
+  }
+
+  if(whatsapp.length < 10){
+    alert('⚠ Enter valid WhatsApp number');
+    return;
+  }
+
+  history.pushState({page:'paymentStep'}, '', '#payment');
+
   document.getElementById('step1').classList.add('hidden');
   document.getElementById('step2').classList.remove('hidden');
 }
 
 function submitForm(){
+
+  let transaction = document.getElementById('transaction').value.trim();
+  let rules = document.getElementById('rules').checked;
+  let screenshot = document.getElementById('screenshot').files.length;
+
+  if(transaction === ''){
+    alert('⚠ Please enter UPI Transaction ID');
+    return;
+  }
+
+  if(screenshot === 0){
+    alert('⚠ Please upload payment screenshot');
+    return;
+  }
+
+  if(!rules){
+    alert('⚠ Please agree to tournament rules');
+    return;
+  }
 
   let player = {
     name: document.getElementById('name').value,
@@ -141,7 +179,8 @@ function submitForm(){
     ign: document.getElementById('ign').value,
     whatsapp: document.getElementById('whatsapp').value,
     mode: document.getElementById('mode').value,
-    transaction: document.getElementById('transaction').value
+    transaction: transaction,
+    status: 'Pending Verification'
   }
 
   let players = JSON.parse(localStorage.getItem('players')) || [];
@@ -150,7 +189,7 @@ function submitForm(){
 
   localStorage.setItem('players', JSON.stringify(players));
 
-  alert('✅ Registration Successful!');
+  alert('✅ Registration Submitted Successfully! Waiting For Admin Verification.');
 
   location.reload();
 }
@@ -189,6 +228,7 @@ function loadPlayers(){
         <p><b>WhatsApp:</b> ${player.whatsapp}</p>
         <p><b>Mode:</b> ${player.mode}</p>
         <p><b>Transaction ID:</b> ${player.transaction}</p>
+        <p><b>Status:</b> <span class="text-yellow-400">${player.status}</span></p>
       </div>
     `;
   });
