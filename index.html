@@ -3,225 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIRMET ZONE TOURNAMENT - JOIN. PLAY. WIN.</title>
+    <title>MIRMET ZONE TOURNAMENT 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            purple: '#1E0B3B',
-                            purple_dark: '#140726',
-                            yellow: '#FFD700',
-                            orange: '#FF8C00',
-                        }
-                    },
-                    backgroundImage: {
-                        'banner': "url('banner.png')", // Banner image file path
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
-        .hidden { display: none; }
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;600&display=swap');
+        
+        body { font-family: 'Poppins', sans-serif; }
+        .heading-font { font-family: 'Oswald', sans-serif; }
+        
         .hero-banner {
-            aspect-ratio: 16/9; /* Maintain banner aspect ratio */
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-image: url('banner.png'); /* Ensure your image name is banner.png */
             background-size: cover;
             background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        /* Overlay to make text readable over the banner */
+        .banner-text-overlay {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .hidden { display: none; }
     </style>
 </head>
-<body class="bg-brand-purple_dark text-white font-sans">
+<body class="bg-[#0f071a] text-white">
 
     <div id="homePage">
-        <header class="w-full">
-            <div class="hero-banner bg-banner">
-                <div class="w-full h-full flex flex-col items-center justify-center p-6 text-center lg:hidden">
-                    <img src="https://mirmet-zone.firebasestorage.app/v0/b/mirmet-zone.firebasestorage.app/o/FF.png?alt=media" alt="Free Fire Logo" class="h-10 mb-4">
-                    <p class="text-xs uppercase tracking-widest text-brand-yellow font-bold">SOLO & SQUAD</p>
-                    <h1 class="text-4xl sm:text-5xl font-bold font-['Roboto Condensed'] text-white uppercase tracking-tight mt-1">MIRMET ZONE<br>TOURNAMENT</h1>
-                    <p class="text-sm mt-2 text-brand-yellow">JOIN. PLAY. WIN.</p>
-                </div>
+        <header class="hero-banner">
+            <div class="banner-text-overlay">
+                <h1 class="heading-font text-3xl md:text-6xl text-yellow-400 tracking-wider uppercase">
+                    MIRMET ZONE TOURNAMENT 2026
+                </h1>
             </div>
         </header>
 
-        <main class="max-w-7xl mx-auto px-6 py-12 md:py-16 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">WELCOME TO <span class="text-brand-yellow">MIRMET ZONE</span></h2>
-            <p class="text-lg text-zinc-300 max-w-3xl mx-auto leading-relaxed mb-10">
-                Aapka Swagat Hai! Mirmet Zone ek unique platform hai jahan har player ko ek professional tournament experience milega. Register karein, apne skills dikhayein, aur ₹5000 tak ke inaam jeetein! Solo aur Squad dono modes available hain.
+        <main class="max-w-4xl mx-auto px-6 py-12 text-center">
+            <h2 class="text-4xl font-bold mb-6">WELCOME TO <span class="text-yellow-400">MIRMET ZONE</span></h2>
+            <p class="text-zinc-400 text-lg leading-relaxed mb-10">
+                Welcome to Mirmet Zone, your ultimate destination for professional Free Fire tournaments. 
+                Register now to showcase your skills and compete for a prize pool of up to ₹5000! 
+                Both Solo and Squad modes are now open for registrations. Join the battle today!
             </p>
             
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                <button onclick="showRegister()" class="bg-brand-yellow text-brand-purple_dark px-8 py-3.5 rounded-full font-extrabold text-lg flex items-center gap-2 transform hover:scale-105 transition-all">
-                    Register Now & Join The Battle
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </button>
-                <p class="text-sm text-zinc-400">Slots are filling fast!</p>
-            </div>
+            <button onclick="showRegister()" class="bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-xl hover:scale-105 transition-transform flex items-center gap-3 mx-auto shadow-lg shadow-yellow-400/20">
+                Register Now & Join The Battle
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+            </button>
+            <p class="text-sm text-zinc-500 mt-4 italic">Limited slots available. Hurry up!</p>
         </main>
 
-        <div class="border-t border-brand-purple bg-brand-purple p-6">
-            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-around gap-x-12 gap-y-6 text-sm text-zinc-300">
-                <div class="flex items-center gap-2.5">
-                    <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span>FAIR PLAY 100%</span>
-                </div>
-                <div class="flex items-center gap-2.5">
-                    <svg class="w-6 h-6 text-brand-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    <span>SMOOTH & LAG FREE</span>
-                </div>
-                <div class="flex items-center gap-2.5">
-                    <svg class="w-6 h-6 text-brand-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-14v14m0-14L4 7m16 0v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7m16 0L12 11M4 7v10a2 2 0 002 2h12a2 2 0 002-2V7"></path></svg>
-                    <span>EXCITING REWARDS</span>
-                </div>
-                <div class="flex items-center gap-2.5">
-                    <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6m-6 0h6m-6 0v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2h-12a2 2 0 00-2 2v6zm-6-6v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2h-12a2 2 0 00-2 2v6z"></path></svg>
-                    <span>LIVE SUPPORT</span>
-                </div>
+        <div class="bg-[#1a0d2e] py-8 border-t border-white/5">
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 text-sm font-semibold text-zinc-300">
+                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-green-500 rounded-full"></div> 100% FAIR PLAY</span>
+                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-yellow-400 rounded-full"></div> NO LAG SERVER</span>
+                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-blue-500 rounded-full"></div> LIVE SUPPORT</span>
             </div>
         </div>
 
-        <footer class="p-4 bg-brand-purple_dark text-zinc-700 text-xs text-center">
-            &copy; 2023 Mirmet Zone. All Rights Reserved.
-            <a href="#" onclick="showAdminLogin()" class="opacity-10 hover:opacity-100 transition ml-2">Admin</a>
+        <footer class="p-6 text-center text-xs text-zinc-700">
+            &copy; 2026 Mirmet Zone Tournament. All Rights Reserved. 
+            <span onclick="showAdminLogin()" class="cursor-pointer opacity-10 hover:opacity-100 ml-2">Admin Panel</span>
         </footer>
     </div>
 
-    <div id="registerPage" class="fixed inset-0 bg-black/80 flex items-center justify-center p-6 hidden z-50">
-        <div class="bg-brand-purple p-8 rounded-2xl w-full max-w-lg border border-brand-yellow/20 relative shadow-xl">
-            <button onclick="closeRegister()" class="absolute top-4 right-4 text-zinc-500 hover:text-white">&times;</button>
-            <h2 class="text-3xl font-bold text-brand-yellow mb-6">Player Registration</h2>
+    <div id="registerPage" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-[#1a0d2e] w-full max-w-md p-8 rounded-2xl border border-white/10">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-yellow-400">Registration</h3>
+                <button onclick="closeModal('registerPage')" class="text-zinc-500 text-3xl">&times;</button>
+            </div>
             
             <div id="step1">
-                <input type="text" id="name" placeholder="Full Name" class="w-full p-3.5 mb-3 bg-brand-purple_dark rounded-lg border border-zinc-700">
-                <input type="text" id="uid" placeholder="Game UID" class="w-full p-3.5 mb-3 bg-brand-purple_dark rounded-lg border border-zinc-700">
-                <input type="text" id="ign" placeholder="In-Game Name (IGN)" class="w-full p-3.5 mb-3 bg-brand-purple_dark rounded-lg border border-zinc-700">
-                <input type="number" id="whatsapp" placeholder="WhatsApp Number" class="w-full p-3.5 mb-3 bg-brand-purple_dark rounded-lg border border-zinc-700">
-                <select id="mode" class="w-full p-3.5 mb-6 bg-brand-purple_dark rounded-lg border border-zinc-700 text-zinc-400">
-                    <option value="Solo">Solo</option>
-                    <option value="Duo">Duo</option>
-                    <option value="Squad">Squad</option>
-                </select>
-                <button onclick="nextStep()" class="w-full bg-brand-yellow text-brand-purple_dark py-3.5 rounded-xl font-bold text-lg">Next Step</button>
+                <label class="block text-xs font-bold text-zinc-500 mb-1 uppercase">Full Name</label>
+                <input type="text" id="name" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5 focus:border-yellow-400 outline-none">
+                
+                <label class="block text-xs font-bold text-zinc-500 mb-1 uppercase">Game UID</label>
+                <input type="text" id="uid" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5">
+                
+                <label class="block text-xs font-bold text-zinc-500 mb-1 uppercase">WhatsApp Number</label>
+                <input type="number" id="whatsapp" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5">
+
+                <button onclick="nextStep()" class="w-full bg-yellow-400 text-black font-bold py-3 rounded-lg mt-2">Continue</button>
             </div>
-            <div id="step2" class="hidden">
-                <p class="mb-4 text-zinc-300 text-sm">Pay the Entry Fee (₹500 for Solo, ₹1000 for Squad) via UPI & Enter Details.</p>
-                <input type="text" id="transaction" placeholder="UPI Transaction ID" class="w-full p-3.5 mb-3 bg-brand-purple_dark rounded-lg border border-zinc-700">
-                <label class="block mb-2 text-sm">Upload Screenshot:</label>
-                <input type="file" id="screenshot" class="mb-4 text-zinc-400">
-                <div class="flex items-center mb-6">
-                    <input type="checkbox" id="rules" class="mr-2">
-                    <label for="rules" class="text-xs text-zinc-400">I agree to the tournament rules.</label>
-                </div>
-                <button onclick="submitForm()" class="w-full bg-green-500 text-white py-3.5 rounded-xl font-bold text-lg">Submit Registration</button>
+
+            <div id="step2" class="hidden text-center">
+                <p class="text-zinc-400 mb-6">Please complete the payment and enter the Transaction ID below.</p>
+                <input type="text" id="transaction" placeholder="Enter Transaction ID" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5">
+                <button onclick="submitForm()" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg">Submit Final Registration</button>
             </div>
         </div>
     </div>
 
-    <div id="adminLogin" class="fixed inset-0 bg-black/80 flex items-center justify-center p-6 hidden z-50">
-        <div class="bg-brand-purple p-8 rounded-2xl w-full max-w-sm border border-brand-yellow/20 relative shadow-xl">
-            <button onclick="closeAdminLogin()" class="absolute top-4 right-4 text-zinc-500 hover:text-white">&times;</button>
-            <h2 class="text-3xl font-bold text-brand-yellow mb-6">Admin Access</h2>
-            <input type="password" id="adminPassword" placeholder="Enter Password" class="w-full p-3.5 mb-4 bg-brand-purple_dark rounded-lg border border-zinc-700">
-            <button onclick="loginAdmin()" class="w-full bg-brand-yellow text-brand-purple_dark py-3.5 rounded-xl font-bold text-lg">Login</button>
+    <div id="adminLogin" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-[#1a0d2e] p-8 rounded-2xl border border-white/10 w-full max-w-xs">
+            <h3 class="text-xl font-bold mb-4">Admin Login</h3>
+            <input type="password" id="adminPassword" placeholder="Password" class="w-full bg-[#0f071a] p-3 rounded-lg mb-4 border border-white/5">
+            <button onclick="loginAdmin()" class="w-full bg-yellow-400 text-black font-bold py-2 rounded-lg">Login</button>
+            <button onclick="closeModal('adminLogin')" class="w-full text-zinc-500 mt-2 text-sm uppercase">Cancel</button>
         </div>
     </div>
 
-    <div id="adminPanel" class="fixed inset-0 bg-brand-purple_dark/95 p-6 hidden z-50 overflow-y-auto">
-        <div class="max-w-7xl mx-auto bg-brand-purple p-8 rounded-2xl border border-brand-yellow/20 relative">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-3xl font-bold text-brand-yellow">Registered Players</h2>
-                <button onclick="logoutAdmin()" class="bg-red-500 px-4 py-1.5 rounded-full text-sm font-bold">Logout</button>
+    <div id="adminPanel" class="fixed inset-0 bg-[#0f071a] z-50 hidden overflow-y-auto p-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold">Admin Dashboard</h2>
+                <button onclick="location.reload()" class="bg-red-500 px-4 py-2 rounded-lg text-sm">Logout</button>
             </div>
-            <div id="playersList" class="space-y-4">
-                </div>
+            <div id="playersList" class="grid gap-4 text-left"></div>
         </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // 🔥 FIREBASE CONFIG (Aapka api key check karein)
-            const firebaseConfig = {
-                apiKey: "AIzaSyDpZD3ML2VVASnCWh665vmyGYKASBaqJ2Y",
-                authDomain: "mirmet-zone.firebaseapp.com",
-                projectId: "mirmet-zone",
-                storageBucket: "mirmet-zone.firebasestorage.app",
-                messagingSenderId: "1003782331127",
-                appId: "1:1003782331127:web:e21a4b1464f8c7a7a791f2"
+        // CONFIG
+        const firebaseConfig = {
+            apiKey: "AIzaSyDpZD3ML2VVASnCWh665vmyGYKASBaqJ2Y",
+            authDomain: "mirmet-zone.firebaseapp.com",
+            projectId: "mirmet-zone",
+            storageBucket: "mirmet-zone.firebasestorage.app",
+            messagingSenderId: "1003782331127",
+            appId: "1:1003782331127:web:e21a4b1464f8c7a7a791f2"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // UI FUNCTIONS
+        function showRegister() { document.getElementById('registerPage').classList.remove('hidden'); }
+        function showAdminLogin() { document.getElementById('adminLogin').classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function nextStep() {
+            if(document.getElementById('name').value && document.getElementById('uid').value) {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+            } else { alert("Please fill all details!"); }
+        }
+
+        function submitForm() {
+            const player = {
+                name: document.getElementById('name').value,
+                uid: document.getElementById('uid').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                txn: document.getElementById('transaction').value,
+                date: new Date().toLocaleString()
             };
+            db.collection("players").add(player).then(() => {
+                alert("Registration Successful!");
+                location.reload();
+            });
+        }
 
-            // Safety check for Firebase
-            if (typeof firebase !== 'undefined') {
-                firebase.initializeApp(firebaseConfig);
-                const db = firebase.firestore();
-                console.log("🔥 Firebase Connected Successfully");
+        function loginAdmin() {
+            if(document.getElementById('adminPassword').value === "mirmet123") {
+                document.getElementById('adminLogin').classList.add('hidden');
+                document.getElementById('adminPanel').classList.remove('hidden');
+                loadPlayers();
+            } else { alert("Wrong Password!"); }
+        }
 
-                // UI HELPER
-                function showModal(id) {
-                    document.getElementById(id).classList.remove("hidden");
-                }
-                function closeModal(id) {
-                    document.getElementById(id).classList.add("hidden");
-                }
-
-                // NAVIGATION
-                window.showRegister = () => { showModal("registerPage"); document.getElementById('step1').classList.remove('hidden'); document.getElementById('step2').classList.add('hidden'); };
-                window.closeRegister = () => closeModal("registerPage");
-                window.showAdminLogin = () => showModal("adminLogin");
-                window.closeAdminLogin = () => closeModal("adminLogin");
-
-                window.nextStep = function () {
-                    let name = document.getElementById('name').value.trim();
-                    let uid = document.getElementById('uid').value.trim();
-                    let whatsapp = document.getElementById('whatsapp').value.trim();
-                    if (!name || !uid || !whatsapp) { alert('⚠ Sabhi details bharna zaroori hai'); return; }
-                    document.getElementById("step1").classList.add("hidden");
-                    document.getElementById("step2").classList.remove("hidden");
-                }
-
-                window.submitForm = function () {
-                    let transaction = document.getElementById('transaction').value.trim();
-                    let rules = document.getElementById('rules').checked;
-                    if (!transaction || !rules) { alert('⚠ Transaction ID aur Rules check karein'); return; }
-                    let player = {
-                        name: document.getElementById('name').value, uid: document.getElementById('uid').value, ign: document.getElementById('ign').value,
-                        whatsapp: document.getElementById('whatsapp').value, mode: document.getElementById('mode').value, transaction: transaction,
-                        status: "Pending", createdAt: Date.now()
-                    };
-                    db.collection("players").add(player).then(() => { alert("✅ Registration Successful!"); location.reload(); }).catch(err => alert("Error: " + err.message));
-                }
-
-                window.loginAdmin = function () {
-                    if (document.getElementById('adminPassword').value === "mirmet123") {
-                        closeModal("adminLogin");
-                        showModal("adminPanel");
-                        loadPlayers();
-                    } else { alert("❌ Galat Password"); }
-                }
-
-                function loadPlayers() {
-                    db.collection("players").orderBy("createdAt", "desc").get().then((snap) => {
-                        let html = "";
-                        snap.forEach((doc) => {
-                            let p = doc.data();
-                            html += `
-                                <div class="bg-brand-purple_dark p-4 rounded-xl border border-brand-yellow/20">
-                                    <p class="font-bold text-white">${p.name} | <span class="text-brand-yellow">${p.ign}</span></p>
-                                    <p class="text-sm text-zinc-400">UID: ${p.uid} | Mode: ${p.mode} | Whatsapp: ${p.whatsapp}</p>
-                                    <p class="text-xs text-zinc-500 mt-1">TXN: ${p.transaction}</p>
-                                </div>`;
-                        });
-                        document.getElementById("playersList").innerHTML = html || "<p class='text-center text-zinc-500'>No registrations yet.</p>";
-                    });
-                }
-                window.logoutAdmin = () => location.reload();
-            } else { alert("Firebase Script load nahi ho paya. Internet check karein."); }
-        });
+        function loadPlayers() {
+            db.collection("players").get().then((snap) => {
+                let html = "";
+                snap.forEach(doc => {
+                    const p = doc.data();
+                    html += `<div class="bg-[#1a0d2e] p-4 rounded-xl border border-white/5">
+                        <p class="font-bold text-yellow-400">${p.name}</p>
+                        <p class="text-sm">UID: ${p.uid} | WhatsApp: ${p.whatsapp}</p>
+                        <p class="text-xs text-zinc-500 mt-2">TXN: ${p.txn}</p>
+                    </div>`;
+                });
+                document.getElementById('playersList').innerHTML = html || "No registrations yet.";
+            });
+        }
     </script>
 </body>
 </html>
